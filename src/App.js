@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import "./App.css";
-import Character from "./components/Character";
+import Characters from "./components/Characters";
 import axios from "axios";
 
 const App = () => {
@@ -9,7 +9,7 @@ const App = () => {
   useEffect(() => {
     axios.get('https://swapi.dev/api/films')
     .then(resp => {
-      console.log(resp);
+      setUsers[resp.data.results]
     })
     .catch (err => console.error(err))
   }, []);
@@ -24,7 +24,7 @@ const App = () => {
   return (
     <div className="App">
       <h1 className="Header">Characters</h1>
-      <Character></Character>
+      <Characters users={users}/>
     </div>
   );
 };
