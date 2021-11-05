@@ -1,32 +1,28 @@
-import React, {useState, useEffect} from "react";
-import "./App.css";
-import Characters from "./components/Characters";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Character from "./components/Character";
 
-const App = () => {
-  const [users, setUsers] = useState([]);
+function App() {
+  const [data, setData] = useState([]);
 
   useEffect(() => {
-    axios.get('https://swapi.dev/api/films')
-    .then(resp => {
-      setUsers[resp.data.results]
-    })
-    .catch (err => console.error(err))
+    const fetchData = async () => {
+      const result = await axios("https://swapi.dev/api/films");
+      const movies = result.data.results;
+      const listItems = movies.map((movie) => (
+        <Character
+          key={movie.episode_id}
+          movieTitle={movie.title}
+          releaseDate={movie.release_date}
+        />
+      ));
+      setData(listItems);
+    };
+
+    fetchData();
   }, []);
 
-  // Try to think through what state you'll need for this app before starting. Then build out
-  // the state properties here.
-
-  // Fetch characters from the API in an effect hook. Remember, anytime you have a
-  // side effect in a component, you want to think about which state and/or props it should
-  // sync up with, if any.
-
-  return (
-    <div className="App">
-      <h1 className="Header">Characters</h1>
-      <Characters users={users}/>
-    </div>
-  );
-};
+  return <ul>{data}</ul>;
+}
 
 export default App;

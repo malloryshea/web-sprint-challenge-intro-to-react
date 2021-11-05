@@ -1,9 +1,9 @@
 // Write your Character component here
 import React from 'react'
-import "./Characters.css";
-import "./Character.js";
+/*import "./Characters.css";*/
+import Character from "./Character";
 
-function Characters(props) {
+const Characters = (props) => {
   return (
     <>
       {props.users.map(user => (
@@ -17,7 +17,7 @@ function Characters(props) {
         <div className="character-list__number">characterNumber</div>
       </div>
     </div>*/
-  );
+  )
 }
 
 export default Characters; 
